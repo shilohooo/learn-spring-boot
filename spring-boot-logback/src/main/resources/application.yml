@@ -1,0 +1,13 @@
+# logback配置
+logging:
+  level:
+    root: info
+  path: D:\shiloh\develop\java\spring-boot-study\spring-boot-logback\logs
+  #config: classpath:logback-spring.xml
+debug: true
+server:
+  port: 8082
+  servlet:
+    context-path: /lxl
+app:
+  name: SpringBoot_logback_config

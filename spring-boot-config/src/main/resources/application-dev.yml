@@ -1,0 +1,7 @@
+# 自定义配置
+demo:
+  book:
+    name: 《追风筝的人》from dev
+    writer: 卡勒德·胡塞尼
+server:
+  port: 8082

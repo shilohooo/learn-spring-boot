@@ -1,0 +1,8 @@
+# 自定义配置
+demo:
+  book:
+    name: 《追风筝的人》
+    writer: 卡勒德·胡塞尼
+spring:
+  profiles:
+    active: dev

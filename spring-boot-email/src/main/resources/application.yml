@@ -1,0 +1,16 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /mail
+spring:
+  mail:
+    host: smtp.qq.com
+    username: 2544729685@qq.com
+    password: gbgbtlugqalaeaja
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true

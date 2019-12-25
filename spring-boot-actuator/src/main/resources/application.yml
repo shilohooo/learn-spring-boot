@@ -1,0 +1,22 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /lxl
+management:
+  server:
+    # actuator端口
+    port: 9001
+  endpoints:
+    web:
+      # 默认访问路径
+      base-path: /actuator
+      # 开发所有页面节点
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      # 显示具体的健康信息
+      show-details: always
+    shutdown:
+      # 提供使用post请求关闭springboot应用
+      enabled: true

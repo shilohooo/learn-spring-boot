@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Email Template</title>
+</head>
+<body>
+  <div>
+    <p style="color: cadetblue">
+      您好！
+      <span>
+      您的验证码为<b th:text="${code}"></b>，请在两分钟内使用完成操作。
+    </span>
+    </p>
+  </div>
+</body>
+</html>
