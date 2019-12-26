@@ -1,7 +1,6 @@
 package org.shiloh;
 
 import org.springframework.boot.Banner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -10,7 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @author shiloh
  **/
 @SpringBootApplication
-public class Application {
+public class WebApplication {
 
     public static void main(String[] args) {
         //SpringApplication application = new SpringApplication(Application.class);
@@ -24,9 +23,9 @@ public class Application {
         //application.run(args);
 
         // 通过SpringApplicationBuilder API启动
-        new SpringApplicationBuilder(Application.class)
+        new SpringApplicationBuilder(WebApplication.class)
                 .bannerMode(Banner.Mode.OFF)
-                .web(WebApplicationType.SERVLET)
+                .web(WebApplicationType.NONE)
                 .profiles("dev")
                 .run(args);
     }

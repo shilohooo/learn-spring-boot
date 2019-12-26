@@ -1,0 +1,13 @@
+# Initializers
+org.springframework.context.ApplicationContextInitializer=\
+org.shiloh.app.init.HelloApplicationContextInitializer,\
+org.shiloh.app.init.AfterHelloApplicationContextInitializer
+
+# Application listener
+org.springframework.context.ApplicationListener=\
+org.shiloh.app.listener.ContextClosedEventListener,\
+org.shiloh.app.listener.AfterContextClosedEventListener
+
+# Application run listener
+org.springframework.boot.SpringApplicationRunListener=\
+org.shiloh.app.listener.HelloApplicationRunListener
