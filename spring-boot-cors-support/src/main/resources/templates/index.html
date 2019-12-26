@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨域测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+</head>
+<body>
+    <div id="hello"></div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        $.get('http://www.shiloh.com:8082/hello', function (data) {
+            $('#hello').text(data)
+        })
+    })
+</script>
+</html>
