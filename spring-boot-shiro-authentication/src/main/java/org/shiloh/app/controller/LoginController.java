@@ -25,10 +25,10 @@ public class LoginController {
     @PostMapping("/login")
     @ResponseBody
     public Result login(String username, String password) {
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        // 获取Subject对象
-        Subject subject = SecurityUtils.getSubject();
         try {
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            // 获取Subject对象
+            Subject subject = SecurityUtils.getSubject();
             // 用户登录
             subject.login(token);
             return Result.ok();
