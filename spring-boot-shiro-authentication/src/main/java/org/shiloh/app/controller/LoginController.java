@@ -19,14 +19,14 @@ public class LoginController {
 
     @GetMapping("/login")
     public String toLoginPage() {
-        return "login";
+        return "loginPage";
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public Result login(String username, String password) {
+    public Result login(String username, String password, Boolean rememberMe) {
         try {
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
             // 获取Subject对象
             Subject subject = SecurityUtils.getSubject();
             // 用户登录
@@ -50,5 +50,10 @@ public class LoginController {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         model.addAttribute("user", user);
         return "index";
+    }
+
+    @GetMapping("/403")
+    public String unAuthorization() {
+        return "403";
     }
 }

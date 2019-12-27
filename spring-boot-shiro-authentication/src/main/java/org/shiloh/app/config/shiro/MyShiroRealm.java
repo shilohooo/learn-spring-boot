@@ -1,12 +1,19 @@
 package org.shiloh.app.config.shiro;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.shiloh.app.dao.UserDao;
+import org.shiloh.app.entity.Permission;
+import org.shiloh.app.entity.Role;
 import org.shiloh.app.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author shiloh
@@ -19,12 +26,37 @@ public class MyShiroRealm extends AuthorizingRealm {
     private UserDao userDao;
 
     /**
-     * 用户角色权限认证
+     * 登录用户角色权限认证
      * @return org.apache.shiro.authz.AuthorizationInfo
      **/
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        // 获取用户名
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        String username = user.getUsername();
+        System.out.println(String.format("用户：%1$s进行权限认证----MyShiroRealm#doGetAuthorizationInfo", username));
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+
+        // 获取用户的角色集合
+        User userInDb = userDao.findByUsername(username);
+        Set<Role> roles = userInDb.getRoles();
+        Set<String> roleNameSet = new HashSet<>();
+        roles.forEach(role -> roleNameSet.add(role.getName()));
+        // 将当前登录用户的角色信息保存到shiro中
+        simpleAuthorizationInfo.setRoles(roleNameSet);
+
+        // 获取用户权限集合
+        Set<Permission> permissions = null;
+        Set<String> permissionNameSet = new HashSet<>();
+        for (Role role : roles) {
+            permissions = role.getPermissions();
+            for (Permission permission : permissions) {
+                permissionNameSet.add(permission.getName());
+            }
+        }
+        // 将当前登录用户的角色对应的权限信息保存到shiro中
+        simpleAuthorizationInfo.setStringPermissions(permissionNameSet);
+        return simpleAuthorizationInfo;
     }
 
     /**
@@ -36,7 +68,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         // 获取用户输入的username和password
         String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
-        System.out.println(String.format("用户：%1$s进行认证---MyShiroRealm#doGetAuthenticationInfo", username));
+        System.out.println(String.format("用户：%1$s进行登录认证---MyShiroRealm#doGetAuthenticationInfo", username));
 
         // 通过用户名查询数据库中对应的用户信息
         User user = userDao.findByUsername(username);
