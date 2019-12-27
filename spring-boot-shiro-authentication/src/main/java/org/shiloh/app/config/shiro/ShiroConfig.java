@@ -3,16 +3,23 @@ package org.shiloh.app.config.shiro;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.SessionListener;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
+import org.crazycake.shiro.RedisSessionDAO;
+import org.shiloh.app.config.listener.ShiroSessionListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 
 /**
@@ -69,6 +76,8 @@ public class ShiroConfig {
         securityManager.setRememberMeManager(rememberMeManager());
         // 注入redisCacheManager
         securityManager.setCacheManager(redisCacheManager());
+        // 注入sessionManager
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 
@@ -140,5 +149,31 @@ public class ShiroConfig {
     @Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();
+    }
+
+    /**
+     * 配置redisSessionDAO
+     * 通过session对象可以查看当前系统的在线人数、用户的基本信息以及强制让用户下线
+     * @return org.crazycake.shiro.RedisSessionDAO
+     **/
+    @Bean
+    public RedisSessionDAO redisSessionDAO() {
+        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+        redisSessionDAO.setRedisManager(redisManager());
+        return redisSessionDAO;
+    }
+
+    /**
+     * session管理器
+     * @return org.apache.shiro.session.mgt.SessionManager
+     **/
+    @Bean
+    public SessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        Collection<SessionListener> sessionListeners = new ArrayList<>();
+        sessionListeners.add(new ShiroSessionListener());
+        sessionManager.setSessionListeners(sessionListeners);
+        sessionManager.setSessionDAO(redisSessionDAO());
+        return sessionManager;
     }
 }

@@ -13,12 +13,13 @@ spring:
     show-sql: true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: root
-      url: jdbc:mysql://localhost:3306/shiro_study?autoReconnect=true&createDatabaseIfNotExist=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&useUnicode=true
+      url: jdbc:mysql://localhost:3306/shiro_study?autoReconnect=true&createDatabaseIfNotExist=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&useUnicode=true&serverTimezone=GMT%2B8
       initial-size: 5
       min-idle: 5
       max-active: 20

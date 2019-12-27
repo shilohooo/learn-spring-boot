@@ -26,7 +26,12 @@ public class LoginController {
     @ResponseBody
     public Result login(String username, String password, Boolean rememberMe) {
         try {
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
+            UsernamePasswordToken token;
+            if (rememberMe != null) {
+                token = new UsernamePasswordToken(username, password, rememberMe);
+            } else {
+                token = new UsernamePasswordToken(username, password);
+            }
             // 获取Subject对象
             Subject subject = SecurityUtils.getSubject();
             // 用户登录
