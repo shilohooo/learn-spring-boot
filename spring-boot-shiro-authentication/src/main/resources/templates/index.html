@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
   <meta charset="UTF-8">
   <title>首页</title>
@@ -7,12 +7,14 @@
 <body>
   <div>
     <h1>欢迎,[[${user.username}]]</h1>
+    <p shiro:hasRole="admin">你的角色为超级管理员</p>
+    <p shiro:hasRole="user">你的角色为普通用户</p>
     <div>
       <h3>权限测试</h3>
       <div>
-        <a type="button" th:href="@{/user/list}">获取用户信息</a>
-        <a type="button" th:href="@{/user/save}">新增用户</a>
-        <a type="button" th:href="@{/user/delete}">删除用户</a>
+        <a type="button" shiro:hasPermission="'user:user'" th:href="@{/user/list}">获取用户信息</a>
+        <a type="button" shiro:hasPermission="'user:save'" th:href="@{/user/save}">新增用户</a>
+        <a type="button" shiro:hasPermission="'user:delete'" th:href="@{/user/delete}">删除用户</a>
       </div>
     </div>
     <a type="button" th:href="@{/logout}">注销</a>

@@ -1,5 +1,6 @@
 package org.shiloh.app.config.shiro;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -112,15 +113,32 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
+    /**
+     * 配置redis缓存
+     * @return org.crazycake.shiro.RedisManager
+     **/
     @Bean
     public RedisManager redisManager() {
         return new RedisManager();
     }
 
+    /**
+     * 缓存管理器
+     * @return org.crazycake.shiro.RedisCacheManager
+     **/
     @Bean
     public RedisCacheManager redisCacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager());
         return redisCacheManager;
+    }
+
+    /**
+     * thymeleaf中使用shiro标签
+     * @return at.pollux.thymeleaf.shiro.dialect.ShiroDialect
+     **/
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
     }
 }
