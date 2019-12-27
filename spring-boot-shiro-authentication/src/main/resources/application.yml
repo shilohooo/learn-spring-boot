@@ -1,0 +1,27 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /lxl
+spring:
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    show-sql: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: root
+      url: jdbc:mysql://localhost:3306/shiro_study?autoReconnect=true&createDatabaseIfNotExist=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&useUnicode=true
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 30000
+  thymeleaf:
+    cache: false
