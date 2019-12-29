@@ -28,8 +28,11 @@ public class User implements Serializable {
      * 在控制器层获取user信息的方法中如果同样加了@JsonView且注解的value值一样
      * 那么序列化user实体时只会序列化那些带有@JsonView(UsernameView.class)注解的属性
      */
-    public interface UsernameView {}
-    public interface AllUserFieldsView extends UsernameView {}
+    public interface UsernameView {
+    }
+
+    public interface AllUserFieldsView extends UsernameView {
+    }
 
     /**
      * JsonProperty 用于为JSON key指定一个别名
@@ -39,7 +42,7 @@ public class User implements Serializable {
     @JsonView(UsernameView.class)
     private String username;
 
-//    @JsonProperty("sex")
+    //    @JsonProperty("sex")
     @JsonView(AllUserFieldsView.class)
     private String gender;
 

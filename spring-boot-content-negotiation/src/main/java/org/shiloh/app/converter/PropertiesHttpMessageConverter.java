@@ -27,6 +27,7 @@ public class PropertiesHttpMessageConverter extends AbstractGenericHttpMessageCo
 
     /**
      * 序列化响应内容
+     *
      * @return void
      **/
     @Override
@@ -49,6 +50,7 @@ public class PropertiesHttpMessageConverter extends AbstractGenericHttpMessageCo
 
     /**
      * 反序列化http请求
+     *
      * @return java.util.Properties
      **/
     @Override

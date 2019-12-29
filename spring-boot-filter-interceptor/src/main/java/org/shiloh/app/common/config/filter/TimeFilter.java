@@ -20,7 +20,7 @@ public class TimeFilter implements Filter {
         System.out.println("TimeFilter begin execution");
         Long startTime = System.currentTimeMillis();
         filterChain.doFilter(servletRequest, servletResponse);
-        System.out.println(String.format("TimeFilter execute time consuming: %1$sms",(System.currentTimeMillis() - startTime)));
+        System.out.println(String.format("TimeFilter execute time consuming: %1$sms", (System.currentTimeMillis() - startTime)));
         System.out.println("TimeFilter end of execution");
     }
 

@@ -39,6 +39,7 @@ public class SendEmailController {
 
     /**
      * 发送一封简单的纯文本邮件
+     *
      * @return
      */
     @GetMapping("/simple")
@@ -59,6 +60,7 @@ public class SendEmailController {
 
     /**
      * 发送HTML格式的邮件
+     *
      * @return
      */
     @GetMapping("/html-email")
@@ -82,6 +84,7 @@ public class SendEmailController {
 
     /**
      * 发送带有附件的邮件
+     *
      * @return
      */
     @GetMapping("/attachment-email")
@@ -108,9 +111,10 @@ public class SendEmailController {
     /**
      * 发送一封带静态资源的邮件
      * 这里发送带图片的
-     *
+     * <p>
      * 发送带静态资源的邮件其实就是在发送HTML邮件的基础上嵌入静态资源（比如图片），
      * 嵌入静态资源的过程和传入附件类似，唯一的区别在于需要标识资源的cid：
+     *
      * @return
      */
     @GetMapping("/img-email")

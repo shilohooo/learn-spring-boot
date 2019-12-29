@@ -29,6 +29,7 @@ public class TestController {
      * JsonView 测试序列列组的定义
      * UsernameView 只序列化username
      * AllUserFieldsView 所有字段
+     *
      * @return
      */
 //    @JsonView(User.UsernameView.class)
@@ -119,6 +120,7 @@ public class TestController {
      * Spring Boot 能自动识别出List对象包含的是User类，
      * 因为在方法中定义的泛型的类型会被保留在字节码中，
      * 所以Spring Boot能识别List包含的泛型类型从而能正确反序列化。
+     *
      * @param users
      * @return
      */
@@ -132,6 +134,7 @@ public class TestController {
      * 因为在运行时刻，泛型己经被擦除了（不同于方法参数定义的泛型，不会被擦除）
      * 为了提供泛型信息，Jackson提供了JavaType ，用来指明集合类型。
      * 请看下面一个方法{@link TestController#fixCustomize()}
+     *
      * @return
      */
     @GetMapping("/customize")

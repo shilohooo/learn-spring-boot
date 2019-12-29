@@ -14,6 +14,7 @@ import java.util.Objects;
 public class HttpContextUtils {
     /**
      * 获取HttpServletRequest
+     *
      * @return
      */
     public static HttpServletRequest getHttpServletRequest() {

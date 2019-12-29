@@ -27,6 +27,7 @@ import java.util.Set;
 public class GlobalExceptionHandler {
     /**
      * 统一处理请求参数非法异常（普通传参）
+     *
      * @param e
      * @return java.lang.String
      **/
@@ -50,6 +51,7 @@ public class GlobalExceptionHandler {
 
     /**
      * 统一处理非法请求参数（实体对象传参）
+     *
      * @param e
      * @return java.lang.String
      **/

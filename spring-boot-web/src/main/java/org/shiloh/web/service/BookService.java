@@ -12,12 +12,14 @@ import java.util.List;
 public interface BookService {
     /**
      * 获取所有 Book
+     *
      * @return
      */
     List<Book> findAll();
 
     /**
      * 新增 Book
+     *
      * @param book {@link Book}
      * @return
      */
@@ -25,6 +27,7 @@ public interface BookService {
 
     /**
      * 更新 Book
+     *
      * @param book {@link Book}
      * @return
      */
@@ -32,6 +35,7 @@ public interface BookService {
 
     /**
      * 根据id删除 Book
+     *
      * @param id
      * @return
      */
@@ -39,6 +43,7 @@ public interface BookService {
 
     /**
      * 根据id获取 Book
+     *
      * @param id
      * @return
      */
@@ -46,6 +51,7 @@ public interface BookService {
 
     /**
      * 查找 Book 是否存在
+     *
      * @param book
      * @return
      */
@@ -53,6 +59,7 @@ public interface BookService {
 
     /**
      * 根据书名查找 Book
+     *
      * @param name
      * @return
      */

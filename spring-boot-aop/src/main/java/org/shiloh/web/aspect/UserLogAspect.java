@@ -32,10 +32,12 @@ public class UserLogAspect {
      * 切点
      */
     @Pointcut("@annotation(org.shiloh.web.common.annotation.UserLog)")
-    public void pointcut() {}
+    public void pointcut() {
+    }
 
     /**
      * 环绕通知
+     *
      * @param point
      * @return
      */
@@ -57,6 +59,7 @@ public class UserLogAspect {
 
     /**
      * 保存用户操作日志
+     *
      * @param point
      * @param executionTime
      */

@@ -27,6 +27,7 @@ public class BookController {
 
     /**
      * 获取 book列表
+     *
      * @return
      */
     @GetMapping("/list")
@@ -36,6 +37,7 @@ public class BookController {
 
     /**
      * 根据id获取book信息
+     *
      * @param id
      * @return
      */
@@ -46,6 +48,7 @@ public class BookController {
 
     /**
      * 新增book
+     *
      * @param book
      * @param builder
      * @return
@@ -65,6 +68,7 @@ public class BookController {
 
     /**
      * 更新book
+     *
      * @param book
      * @return
      */
@@ -75,6 +79,7 @@ public class BookController {
 
     /**
      * 根据id删除book
+     *
      * @param id
      * @return
      */

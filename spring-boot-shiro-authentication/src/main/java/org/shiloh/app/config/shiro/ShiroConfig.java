@@ -99,6 +99,7 @@ public class ShiroConfig {
 
     /**
      * shiro自带cookie对象，用于记住我功能
+     *
      * @return org.apache.shiro.web.servlet.SimpleCookie
      **/
     @Bean
@@ -129,6 +130,7 @@ public class ShiroConfig {
 
     /**
      * 添加注解支持
+     *
      * @return org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
      **/
     @Bean
@@ -140,6 +142,7 @@ public class ShiroConfig {
 
     /**
      * thymeleaf中使用shiro标签
+     *
      * @return at.pollux.thymeleaf.shiro.dialect.ShiroDialect
      **/
     @Bean
@@ -149,6 +152,7 @@ public class ShiroConfig {
 
     /**
      * session管理器
+     *
      * @return org.apache.shiro.session.mgt.SessionManager
      **/
     @Bean
@@ -163,8 +167,9 @@ public class ShiroConfig {
 
     /**
      * shiro配置ehcache缓存
-     * @author lxlei
+     *
      * @return org.apache.shiro.cache.ehcache.EhCacheManager
+     * @author lxlei
      **/
     @Bean
     public EhCacheManager ehCacheManager() {

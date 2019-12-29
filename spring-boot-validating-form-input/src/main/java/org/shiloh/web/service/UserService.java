@@ -12,12 +12,14 @@ import java.util.List;
 public interface UserService {
     /**
      * 获取用户列表
+     *
      * @return
      */
     List<User> list();
 
     /**
      * 根据id获取单个用户
+     *
      * @param id
      * @return
      */
@@ -25,18 +27,21 @@ public interface UserService {
 
     /**
      * 新增用户
+     *
      * @param user
      */
     void save(User user);
 
     /**
      * 修改用户
+     *
      * @param id
      */
     void delete(Long id);
 
     /**
      * 根据id删除用户
+     *
      * @param user
      */
     void update(User user);

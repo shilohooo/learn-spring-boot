@@ -21,11 +21,11 @@ public class TestServiceImpl implements TestService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
+     * @return java.util.concurrent.Future
      * @Async 表明此方法是一个异步方法:
-     *     value：指定需要使用的线程池
+     * value：指定需要使用的线程池
      * 如果异步方法具有返回值的话，需要使用Future来接收回调值
      * 泛型指定返回值的类型，AsyncResult为Spring实现的Future实现类
-     * @return java.util.concurrent.Future
      **/
     @Override
     @Async("asyncThreadPoolTaskExecutor")

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     /**
      * 跨域配置
+     *
      * @param registry
      * @return void
      **/

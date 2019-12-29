@@ -20,6 +20,7 @@ public class SwaggerConfig {
 
     /**
      * swagger2 API文档配置
+     *
      * @return
      */
     @Bean
@@ -34,6 +35,7 @@ public class SwaggerConfig {
 
     /**
      * swagger2 API文档基础信息
+     *
      * @return
      */
     private ApiInfo buildApiInfo() {

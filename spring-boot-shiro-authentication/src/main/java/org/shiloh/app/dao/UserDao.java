@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface UserDao extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
     /**
      * 根据username查询
+     *
      * @param username 用户名
      * @return org.shiloh.app.entity.User
      **/

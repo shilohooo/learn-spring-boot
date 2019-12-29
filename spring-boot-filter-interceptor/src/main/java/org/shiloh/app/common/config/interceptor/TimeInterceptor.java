@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TimeInterceptor implements HandlerInterceptor {
     /**
      * 在处理拦截之前执行
+     *
      * @return boolean
      **/
     @Override
@@ -30,6 +31,7 @@ public class TimeInterceptor implements HandlerInterceptor {
 
     /**
      * 当被拦截的方法没有抛出异常成功时才会处理
+     *
      * @return void
      **/
     @Override
@@ -41,6 +43,7 @@ public class TimeInterceptor implements HandlerInterceptor {
 
     /**
      * 无论被拦截的方法抛出异常与否都会执行
+     *
      * @return void
      **/
     @Override

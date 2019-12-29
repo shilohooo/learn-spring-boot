@@ -27,6 +27,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     /**
      * 登录用户角色权限认证
+     *
      * @return org.apache.shiro.authz.AuthorizationInfo
      **/
     @Override
@@ -61,6 +62,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     /**
      * 用户登录身份认证
+     *
      * @return org.apache.shiro.authc.AuthenticationInfo
      **/
     @Override

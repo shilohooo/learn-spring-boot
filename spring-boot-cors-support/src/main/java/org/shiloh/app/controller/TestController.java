@@ -18,8 +18,8 @@ public class TestController {
     }
 
     /**
-     * @CrossOrigin 跨域支持
      * @return java.lang.String
+     * @CrossOrigin 跨域支持
      **/
     @RequestMapping("/hello")
     @ResponseBody

@@ -9,29 +9,30 @@
     /*border: 1px solid black;*/
     text-align: center;
   }
+
   td {
     padding: 5px;
   }
 </style>
 <body>
-  <div>
-    <h3>在线用户数量: <span id="onlineCount"></span></h3>
-    <table border="1px">
-      <thead>
-        <tr>
-          <th>会话ID</th>
-          <th>用户名</th>
-          <th>登录时间</th>
-          <th>最后访问时间</th>
-          <th>IP地址</th>
-          <th>状态</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-    </table>
-    <a th:href="@{/index}">返回</a>
-  </div>
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<div>
+  <h3>在线用户数量: <span id="onlineCount"></span></h3>
+  <table border="1px">
+    <thead>
+    <tr>
+      <th>会话ID</th>
+      <th>用户名</th>
+      <th>登录时间</th>
+      <th>最后访问时间</th>
+      <th>IP地址</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+  </table>
+  <a th:href="@{/index}">返回</a>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 </body>
 <script type="text/javascript">
   let baseUrl = 'http://localhost:8082/lxl'
@@ -49,7 +50,7 @@
       content += '<td>' + onlineUser.lastAccessTime + '</td>'
       content += '<td>' + onlineUser.host + '</td>'
       content += '<td>' + onlineUser.status + '</td>'
-      content += "<td><a href='#' onclick='offline(\"" + onlineUser.id + "\",\"" + onlineUser.status +"\")'>下线</a></td>"
+      content += "<td><a href='#' onclick='offline(\"" + onlineUser.id + "\",\"" + onlineUser.status + "\")'>下线</a></td>"
       content += '</tr>'
     }
     content += '</tbody>'
@@ -81,12 +82,12 @@
       "q+": Math.floor((this.getMonth() + 3) / 3),
       "S": this.getMilliseconds()
     };
-    if (/(y+)/.test(fmt)){
+    if (/(y+)/.test(fmt)) {
       fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
         .substr(4 - RegExp.$1.length));
     }
-    for (var k in o){
-      if (new RegExp("(" + k + ")").test(fmt)){
+    for (var k in o) {
+      if (new RegExp("(" + k + ")").test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ?
           (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
       }

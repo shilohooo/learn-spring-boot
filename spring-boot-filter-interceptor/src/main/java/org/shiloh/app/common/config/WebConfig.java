@@ -26,6 +26,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
     /**
      * 通过FilterRegistrationBean来注册过滤器
      * FilterRegistrationBean除了注册过滤器TimeFilter外还通过setUrlPatterns方法配置了URL匹配规则
+     *
      * @return org.springframework.boot.web.servlet.FilterRegistrationBean
      **/
     @Bean
@@ -44,6 +45,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
     /**
      * 通过InterceptorRegistry注册拦截器
+     *
      * @param registry
      * @return void
      **/

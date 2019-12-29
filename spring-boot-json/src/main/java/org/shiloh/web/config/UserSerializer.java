@@ -17,6 +17,7 @@ public class UserSerializer extends JsonSerializer<User> {
     /**
      * 自定义序列化规则
      * 将username序列化为user-name
+     *
      * @param user
      * @param jsonGenerator
      * @param serializerProvider

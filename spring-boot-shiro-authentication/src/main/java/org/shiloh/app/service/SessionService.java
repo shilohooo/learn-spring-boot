@@ -12,12 +12,14 @@ import java.util.List;
 public interface SessionService {
     /**
      * 查看所有在线用户信息列表
+     *
      * @return java.util.List<org.shiloh.app.entity.OnlineUserInfo>
      **/
     List<OnlineUserInfo> getOnlineUserInfoList();
 
     /**
      * 强制某个用户下线
+     *
      * @param sessionId 会话id
      * @return java.lang.Boolean
      **/

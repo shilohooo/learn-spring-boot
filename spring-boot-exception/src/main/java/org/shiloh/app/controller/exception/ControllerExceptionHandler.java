@@ -19,10 +19,10 @@ import java.util.Map;
 public class ControllerExceptionHandler {
 
     /**
+     * @param e
+     * @return java.util.Map<java.lang.String, java.lang.Object>
      * @ExceptionHandler 指定要处理的异常类型
      * @ResponseStatus 指定异常处理方法返回的HTTP状态码(500)
-     * @param e
-     * @return java.util.Map<java.lang.String,java.lang.Object>
      **/
     @ExceptionHandler(UserNotExistsException.class)
     @ResponseBody

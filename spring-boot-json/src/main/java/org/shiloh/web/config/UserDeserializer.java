@@ -18,6 +18,7 @@ public class UserDeserializer extends JsonDeserializer<User> {
     /**
      * 自定义反序列化规则
      * 反序列user-name为user实体的username属性
+     *
      * @param jsonParser
      * @param deserializationContext
      * @return

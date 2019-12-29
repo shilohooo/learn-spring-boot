@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE xml>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <springProperty scope="context" name="logPath" source="logging.path" />
-    <springProperty scope="context" name="logLevel" source="logging.level.root" />
-    <springProperty scope="context" name="appName" source="app.name" />
+    <springProperty scope="context" name="logPath" source="logging.path"/>
+    <springProperty scope="context" name="logLevel" source="logging.level.root"/>
+    <springProperty scope="context" name="appName" source="app.name"/>
 
     <contextName>${appName}</contextName>
 
     <!-- 输入到控制台 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-<!--        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
-<!--            <level>ERROR</level>-->
-<!--        </filter>-->
+        <!--        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+        <!--            <level>ERROR</level>-->
+        <!--        </filter>-->
         <encoder>
-            <pattern>%cyan(%contextName) %red(%d{HH:mm:ss.SSS}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}) - %msg%n</pattern>
+            <pattern>%cyan(%contextName) %red(%d{HH:mm:ss.SSS}) %green([%thread]) %highlight(%-5level)
+                %boldMagenta(%logger{36}) - %msg%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -21,27 +23,29 @@
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${logPath}/${appName}_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
-<!--            只保留最近30天的日志-->
+            <!--            只保留最近30天的日志-->
             <maxHistory>30</maxHistory>
-<!--            指定每个日志文件的大小上限-->
+            <!--            指定每个日志文件的大小上限-->
             <maxFileSize>20MB</maxFileSize>
-<!--            指定日志文件的上限大小-->
+            <!--            指定日志文件的上限大小-->
             <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%cyan(%contextName) %red(%d{HH:mm:ss.SSS}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}) - %msg%n</pattern>
+            <pattern>%cyan(%contextName) %red(%d{HH:mm:ss.SSS}) %green([%thread]) %highlight(%-5level)
+                %boldMagenta(%logger{36}) - %msg%n
+            </pattern>
         </encoder>
     </appender>
 
-<!--    指定最基础的日志输出级别-->
+    <!--    指定最基础的日志输出级别-->
     <root level="INFO">
-        <appender-ref ref="console" />
-        <appender-ref ref="file" />
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
     </root>
 
-<!--    设置某一个包或者具体的某一个类的日志打印级别-->
-    <logger name="org.shiloh.app.controller" />
+    <!--    设置某一个包或者具体的某一个类的日志打印级别-->
+    <logger name="org.shiloh.app.controller"/>
     <logger name="org.shiloh.app.controller.LoginController" level="INFO" additivity="false">
-        <appender-ref ref="console" />
+        <appender-ref ref="console"/>
     </logger>
 </configuration>

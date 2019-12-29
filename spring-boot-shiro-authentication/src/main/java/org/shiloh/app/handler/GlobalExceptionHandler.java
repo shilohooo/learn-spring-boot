@@ -17,6 +17,7 @@ public class GlobalExceptionHandler {
     /**
      * 全局异常处理：
      * 捕捉AuthorizationException，跳转到未授权页面
+     *
      * @return java.lang.String
      **/
     @ExceptionHandler(AuthorizationException.class)

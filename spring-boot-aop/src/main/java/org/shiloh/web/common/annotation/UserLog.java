@@ -15,6 +15,7 @@ import java.lang.annotation.Target;
 public @interface UserLog {
     /**
      * 操作信息
+     *
      * @return
      */
     String value() default "";

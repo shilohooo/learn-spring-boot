@@ -23,6 +23,7 @@ import java.util.Properties;
 public class PropertiesHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
     /**
      * 指定支持解析的参数类型
+     *
      * @return boolean
      **/
     @Override

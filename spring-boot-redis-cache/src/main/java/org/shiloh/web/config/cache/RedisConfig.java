@@ -29,6 +29,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     /**
      * 如果要使用注解的话需要配置cacheManager
+     *
      * @param factory
      * @return
      */
@@ -47,6 +48,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     /**
      * redisTemplate配置
+     *
      * @param factory
      * @return
      */
@@ -70,6 +72,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     /**
      * stringRedisTemplate配置
+     *
      * @param factory
      * @return
      */

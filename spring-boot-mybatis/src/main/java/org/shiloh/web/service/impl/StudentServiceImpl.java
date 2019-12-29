@@ -15,10 +15,10 @@ import java.util.List;
  */
 @Service
 public class StudentServiceImpl implements StudentService {
-    
+
     @Autowired
     private StudentMapper studentMapper;
-    
+
     @Override
     public List<Student> findAll() {
         return studentMapper.findAll();

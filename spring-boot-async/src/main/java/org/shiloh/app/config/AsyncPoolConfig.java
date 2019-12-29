@@ -19,7 +19,7 @@ public class AsyncPoolConfig {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置核心线程的数量，默认值为1
         executor.setCorePoolSize(20);
-         // 设置线程池维护的最大线程数量，只有当核心线程都被用完并且缓冲队列满后，才会开始申请超过核心线程数的线程，默认值为Integer.MAX_VALUE
+        // 设置线程池维护的最大线程数量，只有当核心线程都被用完并且缓冲队列满后，才会开始申请超过核心线程数的线程，默认值为Integer.MAX_VALUE
         executor.setMaxPoolSize(200);
         // 设置缓存队列
         executor.setQueueCapacity(25);
