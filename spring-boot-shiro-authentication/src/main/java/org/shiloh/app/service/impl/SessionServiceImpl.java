@@ -65,11 +65,17 @@ public class SessionServiceImpl implements SessionService {
         return onlineUserInfoList;
     }
 
+    /**
+     * 强制踢出某个用户
+     * 用户在登录时选择了记住我的话则无法踢出
+     * @author lxlei
+     * @param sessionId 会话id
+     * @return java.lang.Boolean
+     **/
     @Override
     public Boolean forceLogout(String sessionId) {
-        log.info("session id: [{}]", sessionId);
         Session session = sessionDAO.readSession(sessionId);
-        sessionDAO.delete(session);
+        session.setTimeout(0);
         return true;
     }
 }

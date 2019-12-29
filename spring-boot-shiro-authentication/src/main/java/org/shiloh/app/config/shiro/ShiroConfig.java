@@ -1,22 +1,25 @@
 package org.shiloh.app.config.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.crazycake.shiro.RedisCacheManager;
-import org.crazycake.shiro.RedisManager;
-import org.crazycake.shiro.RedisSessionDAO;
 import org.shiloh.app.config.listener.ShiroSessionListener;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -74,11 +77,16 @@ public class ShiroConfig {
         securityManager.setRealm(myShiroRealm());
         // 注入cookie管理对象
         securityManager.setRememberMeManager(rememberMeManager());
-        // 注入redisCacheManager
-        securityManager.setCacheManager(redisCacheManager());
+        // 注入ehcacheManager
+        securityManager.setCacheManager(ehCacheManager());
         // 注入sessionManager
         securityManager.setSessionManager(sessionManager());
         return securityManager;
+    }
+
+    @Bean(name = "lifecycleBeanPostProcessor")
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
     }
 
     @Bean
@@ -111,6 +119,14 @@ public class ShiroConfig {
         return cookieRememberMeManager;
     }
 
+    @Bean
+    @DependsOn({"lifecycleBeanPostProcessor"})
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
+    }
+
     /**
      * 添加注解支持
      * @return org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
@@ -123,44 +139,12 @@ public class ShiroConfig {
     }
 
     /**
-     * 配置redis缓存
-     * @return org.crazycake.shiro.RedisManager
-     **/
-    @Bean
-    public RedisManager redisManager() {
-        return new RedisManager();
-    }
-
-    /**
-     * 缓存管理器
-     * @return org.crazycake.shiro.RedisCacheManager
-     **/
-    @Bean
-    public RedisCacheManager redisCacheManager() {
-        RedisCacheManager redisCacheManager = new RedisCacheManager();
-        redisCacheManager.setRedisManager(redisManager());
-        return redisCacheManager;
-    }
-
-    /**
      * thymeleaf中使用shiro标签
      * @return at.pollux.thymeleaf.shiro.dialect.ShiroDialect
      **/
     @Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();
-    }
-
-    /**
-     * 配置redisSessionDAO
-     * 通过session对象可以查看当前系统的在线人数、用户的基本信息以及强制让用户下线
-     * @return org.crazycake.shiro.RedisSessionDAO
-     **/
-    @Bean
-    public RedisSessionDAO redisSessionDAO() {
-        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
-        redisSessionDAO.setRedisManager(redisManager());
-        return redisSessionDAO;
     }
 
     /**
@@ -173,7 +157,24 @@ public class ShiroConfig {
         Collection<SessionListener> sessionListeners = new ArrayList<>();
         sessionListeners.add(new ShiroSessionListener());
         sessionManager.setSessionListeners(sessionListeners);
-        sessionManager.setSessionDAO(redisSessionDAO());
+        sessionManager.setSessionDAO(sessionDAO());
         return sessionManager;
+    }
+
+    /**
+     * shiro配置ehcache缓存
+     * @author lxlei
+     * @return org.apache.shiro.cache.ehcache.EhCacheManager
+     **/
+    @Bean
+    public EhCacheManager ehCacheManager() {
+        EhCacheManager ehCacheManager = new EhCacheManager();
+        ehCacheManager.setCacheManagerConfigFile("classpath:config/ehcache-shiro.xml");
+        return ehCacheManager;
+    }
+
+    @Bean
+    public SessionDAO sessionDAO() {
+        return new MemorySessionDAO();
     }
 }
