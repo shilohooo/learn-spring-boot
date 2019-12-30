@@ -1,5 +1,6 @@
 package org.shiloh.app.config;
 
+import org.shiloh.app.handler.MyAuthenticationAccessDeniedHandler;
 import org.shiloh.app.handler.MyAuthenticationFailureHandler;
 import org.shiloh.app.handler.MyAuthenticationSuccessHandler;
 import org.shiloh.app.handler.MyLogOutSuccessHandler;
@@ -10,6 +11,7 @@ import org.shiloh.app.validate.sms.code.SmsCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +28,7 @@ import javax.sql.DataSource;
  * @description 自定义SpringSecurity配置：基于表单的认证
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true) // 开启SpEL表达式授权注解
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -55,10 +58,16 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyLogOutSuccessHandler logOutSuccessHandler;
 
+    @Autowired
+    private MyAuthenticationAccessDeniedHandler accessDeniedHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // http.httpBasic() HTTP Basic方式
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加验证码校验过滤器，且在校验用户名和密码之前执行
+        http.exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler) // 指定没有权限访问时的处理器
+                .and()
+                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加验证码校验过滤器，且在校验用户名和密码之前执行
                 .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加短信验证码校验过滤器
                 .formLogin()// 认证方式：基于表单的认证
                 .loginPage("/authentication/require") // 自定义登录页面，替换SpringSecurity的默认界面

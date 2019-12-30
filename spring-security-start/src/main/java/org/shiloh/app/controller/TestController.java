@@ -1,6 +1,7 @@
 package org.shiloh.app.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -38,5 +39,11 @@ public class TestController {
     @GetMapping("/sign_out/success")
     public String signOut() {
         return "退出成功，请重新登录";
+    }
+
+    @GetMapping("/admin/msg")
+    @PreAuthorize("hasAuthority('admin')")
+    public String getAdminMsg() {
+        return "这是只有admin才能看到的消息哦~";
     }
 }
