@@ -2,6 +2,7 @@ package org.shiloh.app.config;
 
 import org.shiloh.app.handler.MyAuthenticationFailureHandler;
 import org.shiloh.app.handler.MyAuthenticationSuccessHandler;
+import org.shiloh.app.handler.MyLogOutSuccessHandler;
 import org.shiloh.app.session.MySessionExpiredStrategy;
 import org.shiloh.app.validate.code.MyValidateCodeFilter;
 import org.shiloh.app.validate.sms.code.SmsAuthenticationConfig;
@@ -51,6 +52,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MySessionExpiredStrategy mySessionExpiredStrategy;
 
+    @Autowired
+    private MyLogOutSuccessHandler logOutSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // http.httpBasic() HTTP Basic方式
@@ -73,7 +77,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/code/normal",
                         "/code/sms_code",
                         "/to/sms_login_page",
-                        "/session_invalid").permitAll() // 无需认证的请求url
+                        "/session_invalid",
+                        "/sign_out/success").permitAll() // 无需认证的请求url
                 .anyRequest().authenticated() // 除去antMatchers()方法配置的请求路径以外，所有请求url都需要认证
                 .and()
                 .sessionManagement() // 添加session管理器
@@ -82,6 +87,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .maxSessionsPreventsLogin(true) // 当session达到最大有效数时，不再允许登录相同的用户
                 .expiredSessionStrategy(mySessionExpiredStrategy) // 指定session失效策略
                 .and()
+                .and()
+                .logout()
+                .logoutUrl("/sign_out") // 指定退出登录的url，默认为/logout
+                //.logoutSuccessUrl("/sign_out/success") // 退出登录成功后跳转的url，默认跳转到登录页面
+                .logoutSuccessHandler(logOutSuccessHandler) // 指定退出成功的处理器
+                .deleteCookies("JSESSIONID") // 退出后将key=JSESSIONID的cookie删除
                 .and().csrf().disable() // 关闭CSRF攻击防御
                 .apply(smsAuthenticationConfig); // 将短信验证码校验配置加入到SpringSecurity中
     }

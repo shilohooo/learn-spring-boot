@@ -34,4 +34,9 @@ public class TestController {
     public String sessionInvalid() {
         return "当前会话已过期，请重新认证~";
     }
+
+    @GetMapping("/sign_out/success")
+    public String signOut() {
+        return "退出成功，请重新登录";
+    }
 }
