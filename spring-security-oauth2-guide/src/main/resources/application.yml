@@ -1,0 +1,13 @@
+server:
+  port: 8082
+security:
+  oauth2:
+    client:
+      # 指定OAuth2客户端的client-id和client-secret
+      client-id: shiloh
+      client-secret: shiloh595
+      # 注册一个重定向url测试
+      registered-redirect-uri: https://gitee.com/shilohooo/projects
+app:
+  login:
+    url: http://localhost:8082/oauth/authorize?response_type=code&client_id=shiloh&redirect_uri=https://gitee.com/shilohooo/projects&scope=all&state=hello
