@@ -11,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 /**
  * @author shiloh
@@ -29,6 +33,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyValidateCodeFilter validateCodeFilter;
 
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
+
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // http.httpBasic() HTTP Basic方式
@@ -38,6 +48,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login") // 登录请求url
                 .successHandler(authenticationSuccessHandler) // 登录成功的处理器
                 .failureHandler(authenticationFailureHandler) // 登录失败的处理器
+                .and()
+                .rememberMe() // 开启记住我功能
+                .tokenRepository(persistentTokenRepository()) // 指定token持久化仓库
+                .tokenValiditySeconds(3600) // 指定token有效时间（也就是记住我的失效时间），单位：秒
+                .userDetailsService(myUserDetailsService) // 自定义处理登录逻辑
                 .and()
                 .authorizeRequests() // 授权配置
                 .antMatchers("/authentication/require",
@@ -55,5 +70,18 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * 配置token持久化对象
+     * @author lxlei
+     * @return org.springframework.security.web.authentication.rememberme.PersistentTokenRepository
+     **/
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        jdbcTokenRepository.setCreateTableOnStartup(false);
+        return jdbcTokenRepository;
     }
 }

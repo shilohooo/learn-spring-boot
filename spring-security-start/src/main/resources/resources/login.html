@@ -30,12 +30,11 @@
 <body>
   <div class="login">
     <form method="post" action="/login">
+      <h6>SpringSecurity登录测试</h6>
       <div class="form-group">
-        <label>用户名</label>
         <input type="text" class="form-control" name="username" required placeholder="请输入用户名" />
       </div>
       <div class="form-group">
-        <label>密码</label>
         <input type="password" class="form-control" name="password" required placeholder="请输入密码" />
       </div>
       <div class="form-group">
@@ -49,6 +48,10 @@
             <img src="/code/image.jpg"  alt="验证码"/>
           </div>
         </div>
+        <label>
+          <!--          记住我复选框的name属性必须为remember-me -->
+          <input type="checkbox" name="remember-me" />记住我
+        </label>
       </div>
       <button type="submit" class="btn btn-primary btn-block">登录</button>
     </form>
