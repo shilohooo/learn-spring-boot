@@ -45,7 +45,7 @@
             </label>
           </div>
           <div class="col-md-5">
-            <img src="/code/image.jpg"  alt="验证码"/>
+            <input type="text" class="form-control" id="code" disabled />
           </div>
         </div>
         <label>
@@ -58,10 +58,26 @@
           <button type="submit" class="btn btn-primary btn-block">登录</button>
         </div>
         <div class="col-md-6">
-          <a href="/to/sms_login_page" class="btn btn-link">短信登录</a>
+          <a href="mobile_login.html" class="btn btn-link">短信登录</a>
         </div>
       </div>
     </form>
   </div>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 </body>
+<script type="text/javascript">
+  $(function () {
+    $.ajax({
+      type: 'get',
+      url: '/code/normal',
+      success: function (res) {
+        console.log(res)
+        $('#code').val(res)
+      },
+      error: function (error) {
+        console.log("error")
+      }
+    })
+  })
+</script>
 </html>

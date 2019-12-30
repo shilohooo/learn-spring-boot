@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -25,11 +24,6 @@ public class ImageCode implements Serializable {
     private static final long serialVersionUID = -88344033813453764L;
 
     /**
-     * 验证码图片
-     */
-    private BufferedImage image;
-
-    /**
      * 验证码
      */
     private String code;
@@ -39,8 +33,7 @@ public class ImageCode implements Serializable {
      */
     private LocalDateTime expireTime;
 
-    public ImageCode(BufferedImage image, String code, Integer expireIn) {
-        this.image = image;
+    public ImageCode(String code, Integer expireIn) {
         this.code = code;
         // 设置验证码过期时间，单位：秒
         this.expireTime = LocalDateTime.now().plusSeconds(expireIn);

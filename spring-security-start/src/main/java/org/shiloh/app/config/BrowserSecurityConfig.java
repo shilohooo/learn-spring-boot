@@ -69,9 +69,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() // 授权配置
                 .antMatchers("/authentication/require",
-                        "/resources/**",
                         "/login.html",
-                        "/code/image.jpg",
+                        "/code/normal",
                         "/code/sms_code",
                         "/to/sms_login_page",
                         "/session_invalid").permitAll() // 无需认证的请求url
