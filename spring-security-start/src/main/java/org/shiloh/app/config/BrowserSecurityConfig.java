@@ -2,6 +2,7 @@ package org.shiloh.app.config;
 
 import org.shiloh.app.handler.MyAuthenticationFailureHandler;
 import org.shiloh.app.handler.MyAuthenticationSuccessHandler;
+import org.shiloh.app.session.MySessionExpiredStrategy;
 import org.shiloh.app.validate.code.MyValidateCodeFilter;
 import org.shiloh.app.validate.sms.code.SmsAuthenticationConfig;
 import org.shiloh.app.validate.sms.code.SmsCodeFilter;
@@ -47,6 +48,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SmsAuthenticationConfig smsAuthenticationConfig;
 
+    @Autowired
+    private MySessionExpiredStrategy mySessionExpiredStrategy;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // http.httpBasic() HTTP Basic方式
@@ -67,8 +71,16 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authentication/require",
                         "/login.html",
                         "/code/image.jpg",
-                        "/code/sms_code").permitAll() // 无需认证的请求url
+                        "/code/sms_code",
+                        "/session_invalid").permitAll() // 无需认证的请求url
                 .anyRequest().authenticated() // 除去antMatchers()方法配置的请求路径以外，所有请求url都需要认证
+                .and()
+                .sessionManagement() // 添加session管理器
+                .invalidSessionUrl("/session_invalid") // 指定session失效后需要跳转的url
+                .maximumSessions(1) // 配置session最大并发数量为1个，也就是同一个帐号在同一时刻只能登录1个
+                .maxSessionsPreventsLogin(true) // 当session达到最大有效数时，不再允许登录相同的用户
+                .expiredSessionStrategy(mySessionExpiredStrategy) // 指定session失效策略
+                .and()
                 .and().csrf().disable() // 关闭CSRF攻击防御
                 .apply(smsAuthenticationConfig); // 将短信验证码校验配置加入到SpringSecurity中
     }

@@ -1,5 +1,8 @@
 server:
   port: 80
+  servlet:
+    session:
+      timeout: PT1H # session有效时间设置为一小时
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
