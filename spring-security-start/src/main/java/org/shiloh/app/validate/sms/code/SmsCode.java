@@ -1,25 +1,22 @@
-package org.shiloh.app.validate.code;
+package org.shiloh.app.validate.sms.code;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 
 /**
  * @author shiloh
- * @Date Created in 2019/12/30 9:12
- * @description 图片验证码实体
+ * @Date Created in 2019/12/30 10:31
+ * @description 短信验证码实体
  */
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class ImageCode {
-
-    /**
-     * 验证码图片
-     */
-    private BufferedImage image;
+@NoArgsConstructor
+public class SmsCode {
 
     /**
      * 验证码
@@ -31,10 +28,8 @@ public class ImageCode {
      */
     private LocalDateTime expireTime;
 
-    public ImageCode(BufferedImage image, String code, Integer expireIn) {
-        this.image = image;
+    public SmsCode(String code, Integer expireIn) {
         this.code = code;
-        // 设置验证码过期时间，单位：秒
         this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
     }
 
@@ -46,4 +41,5 @@ public class ImageCode {
     Boolean isExpire() {
         return LocalDateTime.now().isAfter(expireTime);
     }
+
 }

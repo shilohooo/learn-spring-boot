@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>account-login</title>
+  <title>mobile-login</title>
   <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
@@ -21,7 +21,7 @@
   .login form {
     margin: auto;
     border: 1px solid lightskyblue;
-    width: 300px;
+    width: 350px;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -29,39 +29,49 @@
 </style>
 <body>
   <div class="login">
-    <form method="post" action="/login">
-      <h6>SpringSecurity帐号登录测试</h6>
+    <form method="post" action="/sms_login">
+      <h6>SpringSecurity手机登录测试</h6>
       <div class="form-group">
-        <input type="text" class="form-control" name="username" required placeholder="请输入用户名" />
-      </div>
-      <div class="form-group">
-        <input type="password" class="form-control" name="password" required placeholder="请输入密码" />
+        <input type="text" class="form-control" name="mobile" required value="13025715371" readonly />
       </div>
       <div class="form-group">
         <div class="row">
           <div class="col-md-7">
             <label>
-              <input type="text" class="form-control" name="imageCode" placeholder="请输入验证码" />
+              <input type="text" class="form-control" name="smsCode" placeholder="请输入验证码" required />
             </label>
           </div>
           <div class="col-md-5">
-            <img src="/code/image.jpg"  alt="验证码"/>
+            <a class="btn btn-secondary" href="#" id="sendSmsCodeButton">发送验证码</a>
           </div>
         </div>
-        <label>
-          <!--          记住我复选框的name属性必须为remember-me -->
-          <input type="checkbox" name="remember-me" />&nbsp;记住我
-        </label>
       </div>
       <div class="row">
         <div class="col-md-6">
           <button type="submit" class="btn btn-primary btn-block">登录</button>
         </div>
         <div class="col-md-6">
-          <a href="./mobile_login.html" class="btn btn-link">短信登录</a>
+          <a href="./login.html" class="btn btn-link">帐号登录</a>
         </div>
       </div>
     </form>
   </div>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 </body>
+<script type="text/javascript">
+  $(function () {
+    $('#sendSmsCodeButton').click(function () {
+      $.ajax({
+        type: 'get',
+        url: 'http://localhost/code/sms_code?mobile=13025715371',
+        success: function (res) {
+          console.log("success")
+        },
+        error: function (error) {
+          console.log("error")
+        }
+      })
+    })
+  })
+</script>
 </html>

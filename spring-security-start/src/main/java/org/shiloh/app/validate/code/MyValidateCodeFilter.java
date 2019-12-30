@@ -73,6 +73,7 @@ public class MyValidateCodeFilter extends OncePerRequestFilter {
             if (!StringUtils.equalsIgnoreCase(codeInSession.getCode(), codeInRequest)) {
                 throw new MyValidateCodeException("验证码错误！");
             }
+            // 校验通过之后将验证码从session中移除
             sessionStrategy.removeAttribute(servletWebRequest, ValidateController.SESSION_KEY_IMAGE_CODE);
         } catch (ServletRequestBindingException e) {
             log.info("验证码校验异常：[{}]", e.getMessage());
