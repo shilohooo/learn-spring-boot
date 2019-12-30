@@ -1,8 +1,13 @@
 package org.shiloh.app.validate.code;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -14,7 +19,10 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImageCode {
+@JsonIgnoreProperties({"image"})
+public class ImageCode implements Serializable {
+
+    private static final long serialVersionUID = -88344033813453764L;
 
     /**
      * 验证码图片

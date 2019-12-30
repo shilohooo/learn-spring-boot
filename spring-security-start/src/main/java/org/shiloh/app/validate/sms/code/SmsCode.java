@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -16,7 +17,9 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SmsCode {
+public class SmsCode implements Serializable {
+
+    private static final long serialVersionUID = -1244711660584205588L;
 
     /**
      * 验证码

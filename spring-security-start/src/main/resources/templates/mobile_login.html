@@ -51,7 +51,7 @@
           <button type="submit" class="btn btn-primary btn-block">登录</button>
         </div>
         <div class="col-md-6">
-          <a href="./login.html" class="btn btn-link">帐号登录</a>
+          <a href="../resources/login.html" class="btn btn-link">帐号登录</a>
         </div>
       </div>
     </form>
@@ -60,10 +60,11 @@
 </body>
 <script type="text/javascript">
   $(function () {
+    // let baseUrl = 'http://localhost:8080'
     $('#sendSmsCodeButton').click(function () {
       $.ajax({
         type: 'get',
-        url: 'http://localhost/code/sms_code?mobile=13025715371',
+        url: '/code/sms_code?mobile=13025715371',
         success: function (res) {
           console.log("success")
         },

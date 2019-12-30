@@ -69,9 +69,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() // 授权配置
                 .antMatchers("/authentication/require",
+                        "/resources/**",
                         "/login.html",
                         "/code/image.jpg",
                         "/code/sms_code",
+                        "/to/sms_login_page",
                         "/session_invalid").permitAll() // 无需认证的请求url
                 .anyRequest().authenticated() // 除去antMatchers()方法配置的请求路径以外，所有请求url都需要认证
                 .and()
