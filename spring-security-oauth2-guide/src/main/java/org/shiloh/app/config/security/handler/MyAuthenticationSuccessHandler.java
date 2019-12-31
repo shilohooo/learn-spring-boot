@@ -33,6 +33,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Autowired
     private ClientDetailsService clientDetailsService;
 
+    @Autowired
     private AuthorizationServerTokenServices authorizationServerTokenServices;
 
     @Override

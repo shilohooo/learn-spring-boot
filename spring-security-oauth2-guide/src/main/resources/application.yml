@@ -11,3 +11,8 @@ security:
 app:
   login:
     url: http://localhost:8082/oauth/authorize?response_type=code&client_id=shiloh&redirect_uri=https://gitee.com/shilohooo/projects&scope=all&state=hello
+spring:
+  redis:
+    timeout: 30000
+    host: localhost
+    port: 6379
