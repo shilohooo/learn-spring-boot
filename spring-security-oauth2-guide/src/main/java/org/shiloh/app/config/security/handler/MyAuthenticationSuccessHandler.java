@@ -2,10 +2,10 @@ package org.shiloh.app.config.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.*;
@@ -36,6 +36,9 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Autowired
     private AuthorizationServerTokenServices authorizationServerTokenServices;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         // 从请求头中获取client_id
@@ -52,7 +55,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         // 校验clientId和clientSecret是否正确
         if (clientDetails == null) {
             throw new UnapprovedClientAuthenticationException(String.format("client：%1$s对应的信息不存在", clientId));
-        } else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
+        } else if (!passwordEncoder.matches(clientSecret, clientDetails.getClientSecret())) {
             throw new UnapprovedClientAuthenticationException("clientSecret不正确");
         } else {
             // 生成tokenRequest
