@@ -1,7 +1,6 @@
 package org.shiloh.app.config.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -20,8 +19,11 @@ import java.io.IOException;
 @Component
 public class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-    @Autowired
-    private ObjectMapper mapper;
+    private final ObjectMapper mapper;
+
+    public MyAuthenticationFailureHandler(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {

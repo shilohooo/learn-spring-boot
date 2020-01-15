@@ -2,7 +2,6 @@ package org.shiloh.app.config.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,14 +29,19 @@ import java.util.HashMap;
 @Slf4j
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    @Autowired
-    private ClientDetailsService clientDetailsService;
+    private final ClientDetailsService clientDetailsService;
 
-    @Autowired
-    private AuthorizationServerTokenServices authorizationServerTokenServices;
+    private final AuthorizationServerTokenServices authorizationServerTokenServices;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public MyAuthenticationSuccessHandler(ClientDetailsService clientDetailsService,
+                                          AuthorizationServerTokenServices authorizationServerTokenServices,
+                                          PasswordEncoder passwordEncoder) {
+        this.clientDetailsService = clientDetailsService;
+        this.authorizationServerTokenServices = authorizationServerTokenServices;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

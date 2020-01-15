@@ -15,8 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    public AuthenticationManager authenticationManager() throws Exception {
+    //@Override 不注释这里获取token的时候会报堆栈溢出的异常
+    public AuthenticationManager getAuthenticationManager() throws Exception {
         return super.authenticationManagerBean();
     }
 }

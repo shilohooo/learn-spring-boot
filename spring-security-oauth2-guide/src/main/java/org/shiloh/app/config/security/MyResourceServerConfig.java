@@ -4,7 +4,6 @@ import org.shiloh.app.config.security.handler.MyAuthenticationFailureHandler;
 import org.shiloh.app.config.security.handler.MyAuthenticationSuccessHandler;
 import org.shiloh.app.validate.smscode.SmsAuthenticationConfig;
 import org.shiloh.app.validate.smscode.SmsCodeFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -20,17 +19,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableResourceServer // 开启资源服务器
 public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    @Autowired
-    private MyAuthenticationSuccessHandler successHandler;
+    private final MyAuthenticationSuccessHandler successHandler;
 
-    @Autowired
-    private MyAuthenticationFailureHandler failureHandler;
+    private final MyAuthenticationFailureHandler failureHandler;
 
-    @Autowired
-    private SmsCodeFilter smsCodeFilter;
+    private final SmsCodeFilter smsCodeFilter;
 
-    @Autowired
-    private SmsAuthenticationConfig smsAuthenticationConfig;
+    private final SmsAuthenticationConfig smsAuthenticationConfig;
+
+    public MyResourceServerConfig(MyAuthenticationSuccessHandler successHandler, MyAuthenticationFailureHandler failureHandler,
+                                  SmsCodeFilter smsCodeFilter, SmsAuthenticationConfig smsAuthenticationConfig) {
+        this.successHandler = successHandler;
+        this.failureHandler = failureHandler;
+        this.smsCodeFilter = smsCodeFilter;
+        this.smsAuthenticationConfig = smsAuthenticationConfig;
+    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
