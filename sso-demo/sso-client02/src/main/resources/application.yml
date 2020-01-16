@@ -1,0 +1,16 @@
+app:
+  name: 单点登录测试客户端02
+security:
+  oauth2:
+    client:
+      client-id: client02 # 客户端 id
+      client-secret: client02-123456 # 客户端密码
+      user-authorization-uri: http://localhost:8082/server/oauth/authorize # 用户认证地址
+      access-token-uri: http://localhost:8082/server/oauth/token # token获取地址
+    resource:
+      jwt:
+        key-uri: http://localhost:8082/server/oauth/token_key # token密钥获取地址
+server:
+  port: 9091
+  servlet:
+    context-path: /client02
