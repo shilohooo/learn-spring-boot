@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//@Component
 public class User {
 
     private String username;
