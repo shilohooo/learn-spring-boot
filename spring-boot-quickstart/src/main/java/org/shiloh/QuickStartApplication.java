@@ -12,15 +12,14 @@ import static org.slf4j.LoggerFactory.getLogger;
 @SpringBootApplication
 public class QuickStartApplication {
 
-    private static final Logger LOGGER = getLogger(QuickStartApplication.class);
-
+    private static final Logger LOG = getLogger(QuickStartApplication.class);
 
     public static void main(String[] args) {
-        LOGGER.trace("***************log trace msg*****************");
-        LOGGER.info("***************log info msg*****************");
-        LOGGER.debug("***************log debug msg*****************");
-        LOGGER.warn("***************log warning msg*****************");
-        LOGGER.error("***************log error msg*****************");
+        LOG.trace("***************log trace msg*****************");
+        LOG.info("***************log info msg*****************");
+        LOG.debug("***************log debug msg*****************");
+        LOG.warn("***************log warning msg*****************");
+        LOG.error("***************log error msg*****************");
         SpringApplication.run(QuickStartApplication.class, args);
     }
 }
