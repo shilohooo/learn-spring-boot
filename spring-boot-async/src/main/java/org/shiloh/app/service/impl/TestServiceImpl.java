@@ -18,11 +18,11 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class TestServiceImpl implements TestService {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOG = LoggerFactory.getLogger(TestServiceImpl.class);
 
     /**
      * @return java.util.concurrent.Future
-     * @Async 表明此方法是一个异步方法:
+     * {@link Async} 表明此方法是一个异步方法:
      * value：指定需要使用的线程池
      * 如果异步方法具有返回值的话，需要使用Future来接收回调值
      * 泛型指定返回值的类型，AsyncResult为Spring实现的Future实现类
@@ -31,7 +31,7 @@ public class TestServiceImpl implements TestService {
     @Async("asyncThreadPoolTaskExecutor")
     public Future<String> asyncTest01() {
         sleep();
-        logger.info("异步方法内部线程名称：{}", Thread.currentThread().getName());
+        LOG.info("异步方法内部线程名称：{}", Thread.currentThread().getName());
         return new AsyncResult<>("Hello async~");
     }
 
