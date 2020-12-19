@@ -32,7 +32,8 @@ public class HelloController {
     }
 
     @GetMapping("/redirect-params")
-    public void getRedirectParams(@RequestParam("TokenAuthResponse") String tokenAuthResponse) {
+    public void getRedirectParams(@RequestParam(value = "TokenAuthResponse", required = false)
+                                              String tokenAuthResponse) {
         System.out.println("tokenAuthResponse = " + tokenAuthResponse);
     }
 }
